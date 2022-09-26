@@ -1,4 +1,4 @@
-//first topic: linked list
+//first topic:singly linked list
 #include<iostream>
 using namespace std;
 
