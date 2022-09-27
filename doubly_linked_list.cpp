@@ -6,7 +6,7 @@ class node{
     int data;
     node* pre;
     node* next;
-    node(int data)
+    node(int data=0)
     {
         this->data=data;
         this->pre=NULL;
@@ -39,6 +39,14 @@ void ins_at_pos(int pos,int data,node* &head,node* &tail)
         for(int i=1;i<pos-1;++i)
         {
             temp=temp->next;
+            if(i<pos-2&&temp->next==NULL)
+            {
+                node* ran=new node();
+                temp->next=ran;
+                ran->pre=temp;
+                ran->next=NULL;
+                tail=ran;
+            }
         }
         if(temp->next==NULL)
         {
@@ -55,7 +63,7 @@ void ins_at_pos(int pos,int data,node* &head,node* &tail)
 
     }
 }
-void deleteAt(int pos,node* &head,node* &tail)
+void delete_pos(int pos,node* &head,node* &tail)
 {
     if(pos==1)
     {
@@ -89,7 +97,7 @@ void deleteAt(int pos,node* &head,node* &tail)
         }
     }
 }
-void print(node* &head)
+void print(node* &head,node* &tail)
 {
     node* temp=head;
     while(temp!=NULL)
@@ -98,27 +106,31 @@ void print(node* &head)
         temp=temp->next;
     }
     cout<<endl;
+    cout<<head->data<<" "<<tail->data<<endl;
+
 }
 int main()
 {
     node *head=new node(5);
     node *tail=head;
     ins_at_pos(2,10,head,tail);
-    print(head);
+    print(head,tail);
     ins_at_pos(3,15,head,tail);
-    print(head);
+    print(head,tail);
     ins_at_pos(1,0,head,tail);
-    print(head);
-    ins_at_pos(5,20,head,tail);
-    print(head);
+    print(head,tail);
     ins_at_pos(4,12,head,tail);
-    print(head);
-    deleteAt(1,head,tail);
-    print(head);
-    deleteAt(3,head,tail);
-    print(head);
-    deleteAt(4,head,tail);
-    print(head);
-    cout<<head->data<<"\t"<<tail->data<<endl;
-
+    print(head,tail);
+    ins_at_pos(3,8,head,tail);
+    print(head,tail);
+    ins_at_pos(7,20,head,tail);
+    print(head,tail);
+    ins_at_pos(10,25,head,tail);
+    print(head,tail);
+    delete_pos(10,head,tail);
+    print(head,tail);
+    delete_pos(4,head,tail);
+    print(head,tail);
+    delete_pos(1,head,tail);
+    print(head,tail);
 }
