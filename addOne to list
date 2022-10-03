@@ -1,0 +1,51 @@
+    Node* addOne(Node *head) 
+    {
+        // Your Code here
+        // return head of list after adding one
+        Node *pre,*curr,*forw;
+        pre=curr=forw=NULL;
+        while(head->next!=NULL)
+        {
+            curr=head;
+            forw=curr->next;
+            curr->next=pre;
+            pre=curr;
+            head=forw;
+        }
+        head->next=pre;
+        curr=head;
+        int sum=head->data+1;
+        int carry=sum/10;
+        curr->data=sum%10;
+        curr=curr->next;
+        while(curr!=NULL)
+        {
+            sum=curr->data+carry;
+            carry=sum/10;
+            curr->data=sum%10;
+            if(curr->next==NULL)
+                break;
+            else
+                curr=curr->next;
+        }
+        if(carry!=0)
+        {
+            Node *add=new Node(carry);
+            if(curr==NULL)            //pahle if(curr->next=NULL) likha tha lekin jb curr
+                head->next=add;       //NULL hoga tb to ye seg fault hi dega na
+            else
+                curr->next=add;
+        }
+        pre=curr=forw=NULL;
+        while(head->next!=NULL)
+        {
+            curr=head;
+            forw=curr->next;
+            curr->next=pre;
+            pre=curr;
+            head=forw;
+        }
+        head->next=pre;
+        return head;
+        
+    }
